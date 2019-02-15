@@ -8,11 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.euris.sample.forex.entity.ExchangeValue;
-import it.euris.sample.forex.error.controller.MyErrorController;
 import it.euris.sample.forex.repository.ExchangeValueRepository;
 
 @RestController
-public class ForexController extends MyErrorController{
+public class ForexController /*extends MyErrorController*/{
 
 	@Autowired
 	private ExchangeValueRepository repository;
