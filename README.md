@@ -1,9 +1,13 @@
 # crif-training
 
-## Risorsa Forex
+## Comunicazione tramite Spring Cloud Eureka e Feign
 
-Il progetto espone un singolo endpoint REST alla porta 8000.
-Per eseguirlo, importarlo in Eclipse ed eseguire la build con Maven, dopodichè basta eseguire
-java -jar forex-resource-0.0.1-SNAPSHOT.jar. 
+I tre Spring Boot rappresentano un tipico schema di comunicazione su Spring Cloud, sfruttando sia Eureka Server per reperire le risorse senza doverle specificare ai client sia Feign per l'uso di client REST dichiarativi.
 
-Un link di esempio è http://localhost:8000/currency-exchange/from/EUR/to/INR
+Una volta avviati tutti e tre, potrete osservare i tre seguenti ambienti
+
+- A localhost:8761 vedrete il registro di Eureka, che dovrebbe mostrare gli altri due Boot registrati su di esso
+- Chiamando http://localhost:9999/sample-api/hello?name=[NOME] vedrete l'Api che chiameremo attraverso Eureka. Immaginate che questo sia un servizio privato, che non vogliamo esporre direttamente ai client. 
+- Chiamando http://localhost:8088/sample-client/remote-hello?name=Carlo , che rappresenta il nostro client pubblico, vedrete che otterrete la stessa risposta del punto precedente. Questo perchè il client Feign all'interno del terzo Boot ha il nome del servizio sample-api, pur non conoscendone l'ip preciso, e l'indirizzo del server Eureka, che glielo fornirà al momento della chiamata.
+
+Provate a modificare e ad aggiungere funzioni ai due moduli sample-api e sample-client.
