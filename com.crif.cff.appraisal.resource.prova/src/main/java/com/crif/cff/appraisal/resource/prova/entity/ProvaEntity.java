@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import org.dozer.Mapping;
+
 import com.eaio.uuid.UUID;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class ProvaEntity {
@@ -17,9 +20,14 @@ public class ProvaEntity {
 	private String foo;
 	private String bar;
 	
-//	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-//	private List<SubProvaEntity> childern;
+	@JsonIgnoreProperties("parent")
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+	private List<SubProvaEntity> children;
+	
+	public ProvaEntity() {
+	}
 
+	@Mapping("foo")
 	public String getFoo() {
 		return foo;
 	}
@@ -27,7 +35,8 @@ public class ProvaEntity {
 	public void setFoo(String foo) {
 		this.foo = foo;
 	}
-
+	
+	@Mapping("bar")
 	public String getBar() {
 		return bar;
 	}
@@ -44,12 +53,13 @@ public class ProvaEntity {
 		this.provaId = provaId;
 	}
 
-//	public List<SubProvaEntity> getChildern() {
-//		return childern;
-//	}
-//
-//	public void setChildern(List<SubProvaEntity> childern) {
-//		this.childern = childern;
-//	}
+	@Mapping("children")
+	public List<SubProvaEntity> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SubProvaEntity> childern) {
+		this.children = childern;
+	}
 
 }

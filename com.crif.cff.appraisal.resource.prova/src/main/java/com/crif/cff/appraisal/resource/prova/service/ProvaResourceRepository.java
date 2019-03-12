@@ -1,5 +1,7 @@
 package com.crif.cff.appraisal.resource.prova.service;
 
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,16 +21,19 @@ public class ProvaResourceRepository implements CFFResourceRepository<Prova, Pro
 	
 	@Autowired
 	private ProvaEntityRepository repository;
+	
+	private Mapper mapper = new DozerBeanMapper();
 
 	@Override
 	public Prova get(CFFKey<UUID> id) {
-		Prova prova = new Prova();
 		CFFKey<UUID> cffKey = new CFFKey<UUID>();
 		ProvaEntity entity = repository.getOne(id.getKey());
 		cffKey.setKey(entity.getProvaId());
-		prova.setId(cffKey);
-		BeanUtils.copyProperties(entity, prova);
-		return prova;
+		
+
+		Prova copied = mapper.map(entity, Prova.class);
+
+		return copied;
 	}
 
 	@Override

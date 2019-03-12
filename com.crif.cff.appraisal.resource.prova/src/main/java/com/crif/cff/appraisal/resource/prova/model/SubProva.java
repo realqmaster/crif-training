@@ -6,6 +6,10 @@ public class SubProva {
 	private String id;
 	private String descr;
 	
+	public SubProva() {
+		
+	}
+	
 	public String getId() {
 		return id;
 	}

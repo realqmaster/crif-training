@@ -17,9 +17,6 @@ import com.crif.cff.shared.commons.service.CFService;
 import com.crif.cff.shared.commons.util.CFFTypesRepository;
 import com.eaio.uuid.UUID;
 
-import uk.co.jemos.podam.api.PodamFactory;
-import uk.co.jemos.podam.api.PodamFactoryImpl;
-
 @SpringBootApplication
 @EnableFeignClients(basePackages = "com.crif.cff")
 public class Application implements ApplicationRunner {
@@ -44,12 +41,17 @@ public class Application implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 		
-		PodamFactory factory = new PodamFactoryImpl();
 		ProvaEntity test = new ProvaEntity();
 		test.setProvaId(new UUID("adbf7bac-3c39-11e9-b210-d663bd873d93"));
 		test.setFoo("aaa");
 		test.setBar("bbb");
-		//test.setChildern(Collections.singletonList(factory.manufacturePojo(SubProvaEntity.class)));
+		
+		SubProvaEntity sub = new SubProvaEntity();
+		sub.setId("123abc");
+		sub.setDescr("We all live in a yellow subentity");
+		sub.setParent(test);
+		
+		test.setChildren(Collections.singletonList(sub));
 
 		repository.save(test);
 

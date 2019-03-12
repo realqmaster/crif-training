@@ -5,6 +5,8 @@ import java.util.List;
 import com.crif.cff.shared.commons.model.CFFKey;
 import com.crif.cff.shared.commons.model.CFFResource;
 import com.eaio.uuid.UUID;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 public class Prova implements CFFResource<UUID> {
 
@@ -12,7 +14,11 @@ public class Prova implements CFFResource<UUID> {
 	private String foo;
 	private String bar;
 	
-	//private List<SubProva> children;
+	private List<SubProva> children;
+	
+	public Prova() {
+		
+	}
 
 	@Override
 	public CFFKey<UUID> getId() {
@@ -41,13 +47,13 @@ public class Prova implements CFFResource<UUID> {
 		this.bar = bar;
 	}
 
-//	public List<SubProva> getChildren() {
-//		return children;
-//	}
-//
-//	public void setChildren(List<SubProva> children) {
-//		this.children = children;
-//	}
+	public List<SubProva> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<SubProva> children) {
+		this.children = children;
+	}
 
 
 

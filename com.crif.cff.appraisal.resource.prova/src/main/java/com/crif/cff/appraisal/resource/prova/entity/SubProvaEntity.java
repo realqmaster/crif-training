@@ -5,6 +5,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.dozer.Mapping;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class SubProvaEntity {
 	
@@ -14,8 +18,14 @@ public class SubProvaEntity {
 	
 	@ManyToOne
 	@JoinColumn
+	@JsonIgnoreProperties("children")
 	private ProvaEntity parent;
 	
+	public SubProvaEntity() {
+		
+	}
+	
+	@Mapping("id")
 	public String getId() {
 		return id;
 	}
@@ -23,12 +33,14 @@ public class SubProvaEntity {
 		this.id = id;
 	}
 
+	@Mapping("descr")
 	public String getDescr() {
 		return descr;
 	}
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
+	
 	public ProvaEntity getParent() {
 		return parent;
 	}
