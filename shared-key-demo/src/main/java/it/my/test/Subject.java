@@ -3,38 +3,39 @@ package it.my.test;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import com.eaio.uuid.UUID;
+
 @Entity
 public class Subject {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer uidSubject;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@MapsId
-	private PrivateIndividual privateIndividual;
 
-	public Integer getUidSubject() {
-		return uidSubject;
-	}
+  @Id
+  @GeneratedValue(generator = "system-uuid")
+  @GenericGenerator(name = "system-uuid", strategy = "it.my.test.MyGenerator")
+  private UUID uidSubject;
 
-	public void setUidSubject(Integer uidSubject) {
-		this.uidSubject = uidSubject;
-	}
+  @OneToOne(cascade = CascadeType.ALL)
+  @MapsId
+  private PrivateIndividual privateIndividual;
 
-	public PrivateIndividual getPrivateIndividual() {
-		return privateIndividual;
-	}
+  public UUID getUidSubject() {
+    return uidSubject;
+  }
 
-	public void setPrivateIndividual(PrivateIndividual privateIndividual) {
-		this.privateIndividual = privateIndividual;
-	}
-	
+  public void setUidSubject(UUID uidSubject) {
+    this.uidSubject = uidSubject;
+  }
 
+  public PrivateIndividual getPrivateIndividual() {
+    return privateIndividual;
+  }
 
+  public void setPrivateIndividual(PrivateIndividual privateIndividual) {
+    this.privateIndividual = privateIndividual;
+  }
 }

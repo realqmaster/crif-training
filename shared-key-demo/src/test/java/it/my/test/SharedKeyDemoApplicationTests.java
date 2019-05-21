@@ -14,28 +14,30 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SharedKeyDemoApplicationTests {
-	
-	@Autowired
-	private SubjectRepo repo;
 
-	@Test
-	public void sharedKeyWorksAsIntended() {
-		
-		for (int i = 0; i < 11; i++) {
-			
-			Subject s = new Subject();
-			PrivateIndividual p = new PrivateIndividual();		
-			s.setPrivateIndividual(p);		
-			repo.save(s);			
-		}
+  @Autowired private SubjectRepo repo;
 
-		
-		List<Subject> test = repo.findAll();
-		for (Subject subject : test) {			
-			assertNotNull(subject.getPrivateIndividual());
-			assertEquals(subject.getUidSubject(), subject.getPrivateIndividual().getId());
+  @Test
+  public void sharedKeyWorksAsIntended() {
 
-		}
-	}
+    for (int i = 0; i < 11; i++) {
 
+      Subject s = new Subject();
+      PrivateIndividual p = new PrivateIndividual();
+      s.setPrivateIndividual(p);
+      repo.save(s);
+    }
+
+    List<Subject> test = repo.findAll();
+    for (Subject subject : test) {
+      assertNotNull(subject.getPrivateIndividual());
+      assertEquals(subject.getUidSubject(), subject.getPrivateIndividual().getId());
+
+      System.out.println(
+          "Subject id: "
+              + subject.getUidSubject().toString()
+              + " | PrivateIndividual id: "
+              + subject.getPrivateIndividual().getId().toString());
+    }
+  }
 }
